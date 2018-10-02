@@ -13,5 +13,6 @@ public interface MainMenuDao {
 	public MainMenu get(int id);
 	public List<MainMenu> getList();
 	public int deleteList(Integer[] menuIds);
+	public List<MainMenu> getListByAcademyId(String id);
 	
 }

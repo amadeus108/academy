@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -30,12 +32,16 @@ public class MainMenu {
 	private int id;
 	private String title;
 	private String url;
-	@Column(updatable=false)	//update할때 넣지 않아도 되는 값으로 설정
-	private int academyId;
+	@Column(updatable=false, insertable=false)	//update할때 넣지 않아도 되는 값으로 설정
+	private String academyId;
 	@Column(updatable=false)	//update할때 넣지 않아도 되는 값으로 설정
 	private Integer parentId; //null이 들어갈수 있는 entity는 문자열이 들어갈 수 있는 정수형으로 바꿔줘야한다.
 	@Column(insertable=false, name="[order]")
 	private int order;
+	
+	@ManyToOne
+	@JoinColumn(name="academyId")//insert, update 등 처리할때 이 academy에 있는 컬럼을 사용함
+	private Academy academy;
 	
 	public MainMenu() {
 		
@@ -48,13 +54,13 @@ public class MainMenu {
 		this.url = url;
 	}
 	
-	public MainMenu(String title, String url, int academyId) {
+	public MainMenu(String title, String url, String academyId) {
 		this.title = title;
 		this.url = url;
 		this.academyId = academyId;
 	}
 
-	public MainMenu(int id, String title, String url, int academyId, Integer parentId, int order) {
+	public MainMenu(int id, String title, String url, String academyId, Integer parentId, int order) {
 		this.id = id;
 		this.title = title;
 		this.url = url;
@@ -87,12 +93,13 @@ public class MainMenu {
 		this.url = url;
 	}
 
-	public int getAcademyId() {
-		return academyId;
+	public String getAcademyId() {
+		return academy.getId();
+		//Academy Entity와 연결했기 때문에 MainMenu의 academyId를 이용하지않고 Academy의 Id를 사용하도록 설정
 	}
 
-	public void setAcademyId(int academyId) {
-		this.academyId = academyId;
+	public void setAcademyId(String academyId) {
+		this.academy.setId(academyId);
 	}
 
 	public int getParentId() {
@@ -116,6 +123,14 @@ public class MainMenu {
 	public String toString() {
 		return "MainMenu [id=" + id + ", title=" + title + ", url=" + url + ", academyId=" + academyId + ", parentId="
 				+ parentId + ", order=" + order + "]";
+	}
+
+	public Academy getAcademy() {
+		return academy;
+	}
+
+	public void setAcademy(Academy academy) {
+		this.academy = academy;
 	}
 
 	

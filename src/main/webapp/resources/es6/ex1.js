@@ -62,7 +62,7 @@ var y = "hello@naver.com";
 console.log(/^.$/.test(text)); //false
 console.log(/^.$/.test(text2)); //true
 //정규식에 u Flag가 새로 생김
-console.log(/^.$/u.test(text))
+console.log(/^.$/u.test(text));
 
 //자바스크립트는 기본 16비트를 이용, 한자는 갯수가 많아 16비트 한문자로 표현불가.  
 
@@ -80,8 +80,15 @@ var name = "서해물";
 var text6 = `${name} 과 백두산이`;
 console.log(text6);
 
+//ex1.html에서 사용할 메뉴 컨트롤러(ng-controller에 입력)를 여기에 작성
+//module은 분리된 형태로 있어야 함(다른 js에도 같은 이름이 있을 수 있으니까), 따로 module을 선언해야함
+//이렇게 module을 만들어주면 완전히 독립된 형태가 된다.
+var menuModule = angular.module("menu-app", []);
+//angular.module("이 모듈을 사용할 앱을 지정", [이 앱에서 사용하는 다양한 디펜던시를 입력하고 없으면 빈 배열])
 
-
+menuModule.controller("menu-controller", function($scope){	/*$scope는 예약된 기호, Model model을 인자로 담아주는것과 같은 기능*/
+	$scope.title = "Hello angular";
+});
 
 
 

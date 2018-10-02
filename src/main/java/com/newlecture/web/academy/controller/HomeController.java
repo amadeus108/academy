@@ -13,14 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.newlecture.web.academy.dao.AcademyDao;
 import com.newlecture.web.academy.dao.MainMenuDao;
+import com.newlecture.web.academy.entity.Academy;
 import com.newlecture.web.academy.entity.MainMenu;
 
 @Controller("academyController")
@@ -30,12 +34,27 @@ public class HomeController {
 	@Autowired
 	private MainMenuDao mainMenuDao;
 	
-	@GetMapping("index")
-	public String index(Model model) {
+	@Autowired
+	private AcademyDao academyDao;
+	
+//	@Autowired
+//	private ?Service service;
+	
+//	/academy/{id} -> /academy/sist
+	@GetMapping("{id}")
+	public String index(@PathVariable("id") String id /*경로 자체에 id가 오도록 한다. 위 getmapping 인자값과 같게 한다.*/
+					, Model model) {
 		
-		List<MainMenu> mainMenus = mainMenuDao.getList();
+//		System.out.println(id);
+		
+		Academy academy = academyDao.get(id);
+		
+//		List<MainMenu> mainMenus = mainMenuDao.getListByAcademyId(id);
+//		academy.setMainMenus(mainMenus);
+		
+//		List<MainMenu> mainMenus = mainMenuDao.getList();
 
-		model.addAttribute("mainMenus", mainMenus);
+		model.addAttribute("academy", academy);
 		
 		return "home.index";
 	}
