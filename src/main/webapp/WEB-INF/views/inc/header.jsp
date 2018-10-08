@@ -5,6 +5,11 @@
 	uri="http://www.springframework.org/security/tags"%>
 <header id="header" class="flex flex-row">
 	<h1><a href=""><img src="/academy/resources/partners/sist/images/logo.png" alt="쌍용교육센터" /></a></h1>
+	<section>
+		<h1>사용자 프로필</h1>
+		<div>사진</div>
+		<div><a href="member/login">로그인</a></div>
+	</section>
 	<section class="bg-white main-menu flex-item-push">
 		<h1 class="hidden">헤더 메뉴</h1>
 		<ul class="hidden main-menu-list show-md-block">

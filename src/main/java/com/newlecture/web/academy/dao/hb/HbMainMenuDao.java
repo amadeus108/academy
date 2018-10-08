@@ -112,8 +112,5 @@ public class HbMainMenuDao implements MainMenuDao {
 		return list;
 	}
 
-	
-
-	
 
 }
