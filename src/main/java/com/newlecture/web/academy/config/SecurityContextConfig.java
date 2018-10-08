@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -20,6 +21,9 @@ public class SecurityContextConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private BasicDataSource dataSource;
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
 	
 //	@Autowired
 //	private AuthenticationSuccessHandler authenticationSuccessHandler;
@@ -61,7 +65,7 @@ public class SecurityContextConfig extends WebSecurityConfigurerAdapter {
 		// 엘뎁, 인메모리, jdbc
 /*		UserBuilder user = User.builder();
 		
-		// 1. 인메모리 방식
+		// 1. 인메모리 방식 (in-memory User info)
 		auth.inMemoryAuthentication()
 		.withUser(
 				 user.username("newlec")
@@ -73,11 +77,16 @@ public class SecurityContextConfig extends WebSecurityConfigurerAdapter {
 				.roles("TEACHER")
 		);*/
 		
-		auth.jdbcAuthentication()
-		.dataSource(dataSource)
-		.usersByUsernameQuery("select id, pwd password, 1 enabled from Member where id=?") // 사용자 쿼리
-		.authoritiesByUsernameQuery("select memberId id, roleName authority  from MemberRole where memberId=?") //권한 테이블 쿼리
-		.passwordEncoder(new BCryptPasswordEncoder()); // 패스워드 인코딩 방식
+		// 2. jdbc : query를 직접 사용한 사용자 정
+//		auth.jdbcAuthentication()
+//		.dataSource(dataSource)
+//		.usersByUsernameQuery("select id, pwd password, 1 enabled from Member where id=?") // 사용자 쿼리
+//		.authoritiesByUsernameQuery("select memberId id, roleName authority  from MemberRole where memberId=?") //권한 테이블 쿼리
+//		.passwordEncoder(new BCryptPasswordEncoder()); // 패스워드 인코딩 방식
+		
+		// 3. jdbc : dao를 이용한 사용자 정보
+		auth.userDetailsService(userDetailsService)
+			.passwordEncoder(new BCryptPasswordEncoder());
 		
 		// 1. 내가 쿼리를 만들어서 제공
 		// 2. 약속된 인터페이스로 구현된 사용자정보 제공 객체

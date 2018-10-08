@@ -6,9 +6,25 @@
 <header id="header" class="flex flex-row">
 	<h1><a href=""><img src="/academy/resources/partners/sist/images/logo.png" alt="쌍용교육센터" /></a></h1>
 	<section>
-		<h1>사용자 프로필</h1>
+		<h1 class="hidden">사용자 프로필</h1>
 		<div>사진</div>
-		<div><a href="member/login">로그인</a></div>
+		<div>
+			<security:authorize access="!isAuthenticated()">
+				<a href="/academy/member/login">로그인</a>
+			</security:authorize>
+			<security:authorize access="isAuthenticated()">
+				<a href="/member/logout"> 
+				<security:authentication property="name" /> 님 로그아웃
+				</a>
+			</security:authorize>
+			<a href="/member/join">회원가입</a>
+			<!-- ROLE_ 를 쓰지 않는다. -->
+			<security:authorize access="hasRole('TEACHER')">
+				<div class="notice">
+					<span>강사공지 : </span><a href="#">3</a>
+				</div>
+			</security:authorize>
+		</div>
 	</section>
 	<section class="bg-white main-menu flex-item-push">
 		<h1 class="hidden">헤더 메뉴</h1>
