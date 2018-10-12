@@ -77,7 +77,7 @@ public class SecurityContextConfig extends WebSecurityConfigurerAdapter {
 				.roles("TEACHER")
 		);*/
 		
-		// 2. jdbc : query를 직접 사용한 사용자 정
+		// 2. jdbc : query를 직접 사용한 사용자 정보
 //		auth.jdbcAuthentication()
 //		.dataSource(dataSource)
 //		.usersByUsernameQuery("select id, pwd password, 1 enabled from Member where id=?") // 사용자 쿼리

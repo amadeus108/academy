@@ -9,7 +9,8 @@
 		<h1 class="hidden">사용자 프로필</h1>
 		<div>사진</div>
 		<div>
-			<security:authorize access="!isAuthenticated()">
+			<!-- 로그인 여부에 따라 메뉴 숨기고 나타내기 -->
+			<security:authorize access="!isAuthenticated()"> 
 				<a href="/academy/member/login">로그인</a>
 			</security:authorize>
 			<security:authorize access="isAuthenticated()">
@@ -18,8 +19,8 @@
 				</a>
 			</security:authorize>
 			<a href="/member/join">회원가입</a>
-			<!-- ROLE_ 를 쓰지 않는다. -->
-			<security:authorize access="hasRole('TEACHER')">
+			<!-- teacher 권한이 있어야 태그가 보이도록 설정 -->
+			<security:authorize access="hasRole('TEACHER')"> 
 				<div class="notice">
 					<span>강사공지 : </span><a href="#">3</a>
 				</div>

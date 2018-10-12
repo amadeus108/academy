@@ -1,5 +1,8 @@
 @charset "UTF-8";
 /* --- reset ------- */
+html{
+	height: 100%;
+}
 body, h1, h2, h3, h4, h5, h6{
 	margin: 0px;
 	padding: 0px;
@@ -81,6 +84,28 @@ body{
 .flex-item-push{
 	margin-left: auto;
 }
+
+/* --- jagged-slider ------- */
+.height-expand{
+	height: 100%;
+}
+.slider-wing{
+	height: 100%;
+	display: flex;
+}
+.wing-item{
+	box-sizing: border-box; /* 보더를 안쪽에 그릴거냐, 밖에 그릴거냐 */
+	border: 1px solid red;
+	width: 100%;
+	height: 100%;
+	flex-wrap: nowrap;
+	flex: 1 0 auto;
+}
+
+
+
+
+
 
 
 

@@ -25,6 +25,7 @@ public class NLUserDetailsService implements UserDetailsService {
 	private MemberRoleDao memberRoleDao;
 
 	@Override
+	@Transactional
 	public UserDetails loadUserByUsername(String username) {
 		Member member = memberDao.get(username);
 		List<MemberRole> memberRoles = memberRoleDao.getListByMemberId(username);

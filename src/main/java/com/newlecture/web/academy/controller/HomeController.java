@@ -56,7 +56,8 @@ public class HomeController {
 
 		model.addAttribute("academy", academy);
 		
-		return "home.index";
+//		return "home.index"; //tiles 사용
+		return "index";
 	}
 	
 	@PostMapping("upload-ajax")
